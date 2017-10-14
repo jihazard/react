@@ -17,10 +17,23 @@ class App extends Component {
   componentDidMount(){
     setTimeout(() => {
       this.setState({
-         movies:[
-           ...this.state.movies,
-           {title: "trainspotting", poster:"http://movie.phinf.naver.net/20170915_299/1505458505658vbKcN_JPEG/movie_image.jpg"}
-         ]
+        movies : [
+          {
+          
+          title:"Matrix",
+          poster: "http://movie.phinf.naver.net/20170915_299/1505458505658vbKcN_JPEG/movie_image.jpg"
+          },
+          {
+          
+            title:"oldboy",
+            poster: "http://movie.phinf.naver.net/20131114_260/1384391087931T5Yx8_JPEG/movie_image.jpg"
+            }
+          ,{
+          
+            title:"starwars",
+            poster: "http://movie.phinf.naver.net/20170915_299/1505458505658vbKcN_JPEG/movie_image.jpg"
+            }
+         ]   
       })
       console.log('hello setTimeout')
     },3000)
@@ -42,35 +55,21 @@ class App extends Component {
   }
 
   state={
-    greeting : 'hello',
-    movies : [
-      {
-      
-      title:"Matrix",
-      poster: "http://movie.phinf.naver.net/20170915_299/1505458505658vbKcN_JPEG/movie_image.jpg"
-      },
-      {
-      
-        title:"oldboy",
-        poster: "http://movie.phinf.naver.net/20131114_260/1384391087931T5Yx8_JPEG/movie_image.jpg"
-        }
-      ,{
-      
-        title:"starwars",
-        poster: "http://movie.phinf.naver.net/20170915_299/1505458505658vbKcN_JPEG/movie_image.jpg"
-        }
-     ]   
+    greeting : 'hello'
   }
-
+ 
+  _renderMovies=() => {
+    const movies = this.state.movies.map((movie , index)=>{
+      return <Movie title={movie.title} poster={movie.poster} key={index} />
+    })
+    return movies
+  }
 
   render() {
     console.log("2.render`")
     return (  
       <div className="App">
-        {this.state.greeting}
-        {this.state.movies.map((movie , index)=>{
-          return <Movie title={movie.title} poster={movie.poster} key={index} />
-        })}
+        {this.state.movies ? this._renderMovies() : '로딩중'}
       </div>
     );
   }
