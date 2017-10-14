@@ -18,15 +18,31 @@ class App extends Component {
   componentDidMount(){
      //promise 의 기능 1. 1번이 끝나기전에 2번을 사용할 수 있ㄱ데 해줌 2. 시나리오를 잘쓰게 해줌. .then.catchj
     
-    fetch('https://yts.ag/api/v2/list_movies.json?sort_by=rating')
+    
+    this._makeMovies();
+  
+  }
+
+   _makeMovies = async() => {
+      const movies = await this._callApi() 
+      this.setState({
+        movies
+      })
+    
+    }
+
+  _callApi = () => {
+    return fetch('https://yts.ag/api/v2/list_movies.json?sort_by=rating')
     .then(response => response.json())
-    .then(json => console.log(json))    
+    .then(json => json.data.movies)    
     .catch(err => console.log(err))
+  
   }
  
   _renderMovies=() => {
+   
     const movies = this.state.movies.map((movie , index)=>{
-      return <Movie title={movie.title} poster={movie.poster} key={index} />
+      return <Movie title={movie.title} poster={movie.large_cover_image} key={index} />
     })
     return movies
   }
