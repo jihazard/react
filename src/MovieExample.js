@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './Movie.css';
 import PropTypes from 'prop-types';
 
@@ -53,7 +53,7 @@ Movie.prototype={
 
 function Poster({poster}){
     return(
-        <img src={poster} alt='poster'/>
+        <img src={poster} />
     )
 }
 

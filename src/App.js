@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Movie from './Movie.js';
 
@@ -9,53 +8,20 @@ class App extends Component {
    //컴포넌트 실행 순서 : render : compoentwillmount() -> render() -> componentdidmount();
   //                    update componentwillreceiveProps() =-> shouldComponentUpdate()-> componentwillupdate() -> render()
   
+
+  state={}
   
   componentWillMount(){
     console.log("1.will mount)")
   }
 
   componentDidMount(){
-    setTimeout(() => {
-      this.setState({
-        movies : [
-          {
-          
-          title:"Matrix",
-          poster: "http://movie.phinf.naver.net/20170915_299/1505458505658vbKcN_JPEG/movie_image.jpg"
-          },
-          {
-          
-            title:"oldboy",
-            poster: "http://movie.phinf.naver.net/20131114_260/1384391087931T5Yx8_JPEG/movie_image.jpg"
-            }
-          ,{
-          
-            title:"starwars",
-            poster: "http://movie.phinf.naver.net/20170915_299/1505458505658vbKcN_JPEG/movie_image.jpg"
-            }
-         ]   
-      })
-      console.log('hello setTimeout')
-    },3000)
-
-    setTimeout(() =>{
-     // 직접적으로 state 변경하면안도미 this.state.greeting= 'somethig'
-     //5초 후에 바뀌게 하기
-     /*
-     this.setState({
-         greeting: 'hello didmount'
-       })
-    }, 5000)
-    */
-    this.setState({
-      greeting: 'hello didmount'
-    })
-    })
-    console.log("3.did mount")
-  }
-
-  state={
-    greeting : 'hello'
+     //promise 의 기능 1. 1번이 끝나기전에 2번을 사용할 수 있ㄱ데 해줌 2. 시나리오를 잘쓰게 해줌. .then.catchj
+    
+    fetch('https://yts.ag/api/v2/list_movies.json?sort_by=rating')
+    .then(response => response.json())
+    .then(json => console.log(json))    
+    .catch(err => console.log(err))
   }
  
   _renderMovies=() => {
@@ -69,7 +35,7 @@ class App extends Component {
     console.log("2.render`")
     return (  
       <div className="App">
-        {this.state.movies ? this._renderMovies() : '로딩중'}
+        {this.state.movies ? this._renderMovies() : '로딩중s'}
       </div>
     );
   }
